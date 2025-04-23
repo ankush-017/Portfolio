@@ -17,7 +17,7 @@ function CodingProfile() {
         min-h-screen md:h-[85vh] lg:h-[90vh] gap-5 md:gap-9 pt-28 md:pt-0`}
       >
         {/* Leetcode */}
-        <div className="flex flex-col justify-center items-center w-full md:w-auto">
+        <div className="flex flex-col mt-11 justify-center items-center w-full md:w-auto">
           <div className="flex gap-2 mb-3 justify-center items-center">
             <img src={leetcode} alt="leetcode" className="h-10 w-10" />
             <h1 className="text-2xl font-bold mt-2 text-[#dda225]">Leetcode</h1>
@@ -33,7 +33,7 @@ function CodingProfile() {
         </div>
 
         {/* GeeksForGeeks */}
-        <div className="flex flex-col justify-center items-center w-full md:w-auto">
+        <div className="flex flex-col justify-center mt-14 items-center w-full md:w-auto">
           <div className="flex gap-2 mb-3 justify-center items-center">
             <img src={gfg} alt="gfg" className="h-10 mt-3 w-10" />
             <h1 className="text-2xl font-bold mt-2 text-[#1d9629]">GeeksForGeeks</h1>
@@ -48,8 +48,8 @@ function CodingProfile() {
           </a>
         </div>
         {/* Codechef */}
-        <div className="flex flex-col justify-center items-center w-full md:w-auto">
-          <div className="flex gap-2 mb-3 justify-center items-center">
+        <div className="flex flex-col justify-center mt-14 items-center w-full md:w-auto">
+          <div className="flex gap-2 mb-1 justify-center items-center">
             <img src={codechef} alt="gfg" className="h-13 w-13" />
             <h1 className="text-2xl font-bold ml-[-20px] mt-2 text-[#bec925]">Codechef</h1>
           </div>
@@ -63,7 +63,7 @@ function CodingProfile() {
           </a>
         </div>
         {/* CodeForces */}
-        <div className="flex flex-col justify-center items-center w-full md:w-auto">
+        <div className="flex flex-col justify-center items-center mt-7 w-full md:w-auto">
           <div className="flex gap-2 mb-3 justify-center items-center">
             <img src={cf} alt="gfg" className="h-10 w-10" />
             <h1 className="text-2xl font-bold mt-2 text-[#f732f4]">CodeForces</h1>

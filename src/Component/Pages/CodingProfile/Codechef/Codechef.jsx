@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { codechef } from "../../../../../public/image/index.js";
 
 export default function Codechef({ username }) {
   const darkMode = useSelector((state) => state.theme.darkMode);
@@ -50,18 +51,30 @@ export default function Codechef({ username }) {
     }
   }, [username]);
 
-  if (loading) return <div className="p-4 text-center">Loading CodeChef profile...</div>;
-  if (error) return <div className="p-4 text-center text-red-500">{error}</div>;
+
+  if (loading) return (
+    <div className="p-4 text-center rounded-lg">
+      <img src={codechef} alt="LeetCode Logo" className="w-[300px] h-auto rounded-lg mx-auto animate-pulse" />
+      {/* <p className="mt-2">Loading LeetCode Profile...</p> */}
+    </div>
+  );
+  
+  if (error) return (
+    <div className="p-4 text-center">
+      <img src={codechef} alt="LeetCode Logo" className="w-[300px] h-auto rounded-lg mx-auto animate-pulse" />
+      {/* <p className="mt-2 text-red-500">Server Busy...</p> */}
+    </div>
+  );
 
   return (
-    <div className={`p-5 rounded-lg shadow-md max-w-sm text-center border-solid border-[2px] 
+    <div className={`p-6 rounded-lg shadow-md w-[300px] text-center border-solid border-[2px] 
       ${darkMode ? "text-white bg-[#2a2a2a] border-gray-300" : "text-gray-800 border-gray-700 bg-[#a09d9d0d]"}`}>
       
       {userData.profileImage ? (
         <img
           src={userData.profileImage}
           alt={`${username}'s profile`}
-          className="w-24 h-24 rounded-full mx-auto border border-gray-300"
+          className="w-40 h-40 rounded-full mx-auto border border-gray-300"
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = "https://via.placeholder.com/150";
@@ -73,13 +86,13 @@ export default function Codechef({ username }) {
         </div>
       )}
       
-      <h2 className="text-xl font-bold mt-3">{username}</h2>
-      <div className="mt-2">
-        <p className="text-[20px]">
+      <h2 className="text-[20px] font-bold mt-3">{username}</h2>
+      <div className="mt-1">
+        <p className="text-[26px]">
           <span className="font-bold text-[#dd2cab]">Stars:</span> 
           <span className="text-[#ffb835] font-bold"> {userData.stars}</span>
         </p>
-        <p className="mb-6">
+        <p className="mb-6 text-[24px]">
           <span className="font-bold text-[#1da11d]">Contest Rating:</span> 
           <span className="text-[#eb822d] font-bold"> {Math.round(userData.contestRating)}</span>
         </p>

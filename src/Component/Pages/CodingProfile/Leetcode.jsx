@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { leetcode } from "../../../../public/image/index.js";
 
 export default function LeetCodeProfile({ username }) {
   const darkMode = useSelector((state) => state.theme.darkMode);
@@ -24,7 +25,7 @@ export default function LeetCodeProfile({ username }) {
         setLoading(true);
         setError("");
 
-        const response = await axios.get(`https://coding-ptofile-api-1.onrender.com/lc/${username}`);
+        const response = await axios.get(`https://coding-profile-api-1.onrender.com/lc/${username}`);
 
         console.log("Received Data:", response.data);
         if (!response.data.profile) {
@@ -37,10 +38,12 @@ export default function LeetCodeProfile({ username }) {
           contestRating: response.data.contest.contestRating || 0,
         });
 
-      } catch (err) {
+      }
+      catch (err) {
         console.error("Error fetching LeetCode data:", err);
         setError("Server Busy ...");
-      } finally {
+      }
+      finally {
         setLoading(false);
       }
     };
@@ -48,8 +51,20 @@ export default function LeetCodeProfile({ username }) {
     fetchLeetCodeData();
   }, [username]);
 
-  if (loading) return <div className="p-4 text-center">Loading LeetCode profile...</div>;
-  if (error) return <div className="p-4 text-center text-red-500">{error}</div>;
+  if (loading) return (
+    <div className="p-4 text-center rounded-lg">
+      <img src={leetcode} alt="LeetCode Logo" className="w-[300px] h-auto rounded-lg mx-auto animate-pulse" />
+      {/* <p className="mt-2">Loading LeetCode Profile...</p> */}
+    </div>
+  );
+  
+  if (error) return (
+    <div className="p-4 text-center">
+      <img src={leetcode} alt="LeetCode Logo" className="w-[300px] h-auto rounded-lg mx-auto animate-pulse" />
+      {/* <p className="mt-2 text-red-500">Server Busy...</p> */}
+    </div>
+  );
+  
 
   return (
     <div className={`p-5 rounded-lg shadow-md max-w-sm text-center border-solid border-2 
