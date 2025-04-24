@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { gfg } from "../../../../../public/image/index.js";
 
 export default function GfgProfile({ username }) {
   const darkMode = useSelector((state) => state.theme.darkMode);
@@ -44,17 +45,26 @@ export default function GfgProfile({ username }) {
     }
   }, [username]);
 
-  if (loading) return <div className="p-4 text-center">Loading GeeksforGeeks profile...</div>;
-  if (error) return <div className="p-4 text-center text-red-500">{error}</div>;
+ if (loading) return (
+    <div className="p-4 text-center rounded-lg">
+      <img src={gfg} alt="LeetCode Logo" className="w-[300px] h-auto rounded-lg mx-auto animate-pulse" />
+    </div>
+  );
+  
+  if (error) return (
+    <div className="p-4 text-center">
+      <img src={gfg} alt="LeetCode Logo" className="w-[300px] h-auto rounded-lg mx-auto animate-pulse" />
+    </div>
+  );
 
   return (
     
-    <div className={`p-5 rounded-lg shadow-md max-w-sm text-center border-2 ${darkMode ? "text-white bg-[#2a2a2a] border-gray-300" : "text-gray-800 border-gray-700 bg-[#a09d9d0d]"}`}>
+    <div className={`p-5 rounded-lg shadow-md w-[300px] text-center border-2 ${darkMode ? "text-white bg-[#2a2a2a] border-gray-300" : "text-gray-800 border-gray-700 bg-[#a09d9d0d]"}`}>
       {userData.profileImage ? (
         <img
           src={userData.profileImage}
           alt={`${username}'s profile`}
-          className="w-24 h-24 rounded-full mx-auto border border-gray-300"
+          className="w-40 h-40 rounded-full mx-auto border border-gray-300"
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = "https://via.placeholder.com/150";
