@@ -23,7 +23,7 @@ function CodingProfile() {
         </div>
 
         {/* Leetcode */}
-        <div className="flex flex-col mt-11 justify-center items-center w-full md:w-auto">
+        <div className="flex flex-col mt-24 md:mt-14 justify-center items-center w-full md:w-auto">
           <div className="flex gap-2 mb-3 justify-center items-center">
             <img src={leetcode} alt="leetcode" className="h-10 w-10" />
             <h1 className="text-2xl font-bold mt-2 text-[#dda225]">Leetcode</h1>
