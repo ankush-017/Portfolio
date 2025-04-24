@@ -2,9 +2,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import LeetCode from "./Leetcode";
 import Gfg from "./GFG/Gfg";
-import { leetcode, gfg,codechef,cf } from "../../../../public/svgs/image";
+import { leetcode, gfg, codechef, cf } from "../../../../public/svgs/image";
 import Codeforces from "./Codeforces/Codeforces";
 import Codechef from './/Codechef/Codechef'
+import ParticlesBackground from '../../ParticlesBackground.jsx'
 
 function CodingProfile() {
   const darkMode = useSelector((state) => state.theme.darkMode);
@@ -12,10 +13,15 @@ function CodingProfile() {
   return (
     <>
       <div
-        className={`flex flex-col md:flex-row items-center justify-center pb-11 md:pb-0 px-5 mx-auto text-center md:text-left 
+        className={`flex flex-col relative z-10 md:flex-row items-center justify-center pb-11 md:pb-0 px-5 mx-auto text-center md:text-left 
         ${darkMode ? "bg-black text-white" : "bg-white text-gray-800"} 
-        min-h-screen md:h-[85vh] lg:h-[90vh] gap-5 md:gap-9 pt-28 md:pt-0`}
+        min-h-screen gap-5 md:gap-9`}
       >
+        {/* Particles only inside this section */}
+        <div className="absolute inset-0 -z-10 pointer-events-none">
+          <ParticlesBackground />
+        </div>
+
         {/* Leetcode */}
         <div className="flex flex-col mt-11 justify-center items-center w-full md:w-auto">
           <div className="flex gap-2 mb-3 justify-center items-center">
@@ -77,6 +83,9 @@ function CodingProfile() {
             Visit Profile
           </a>
         </div>
+      </div>
+      <div className="absolute top-0 left-0 w-full h-screen z-0">
+        <ParticlesBackground />
       </div>
     </>
   );

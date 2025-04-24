@@ -25,7 +25,7 @@ export default function LeetCodeProfile({ username }) {
         setLoading(true);
         setError("");
 
-        const response = await axios.get(`https://coding-profile-api-1.onrender.com/lc/${username}`);
+        const response = await axios.get(`https://coding-ptofile-api-1.onrender.com/lc/${username}`);
 
         console.log("Received Data:", response.data);
         if (!response.data.profile) {
@@ -67,13 +67,13 @@ export default function LeetCodeProfile({ username }) {
   
 
   return (
-    <div className={`p-5 rounded-lg shadow-md max-w-sm text-center border-solid border-2 
+    <div className={`p-5 rounded-lg shadow-md w-[300px] text-center border-solid border-2 
       ${darkMode ? "text-white bg-[#2a2a2a] border-gray-300" : "text-gray-800 border-gray-700 bg-[#f0f0f0]"}`}>
       {userData.profileImage ? (
         <img
           src={userData.profileImage}
           alt={`${username}'s profile`}
-          className="w-24 h-24 rounded-full mx-auto border border-gray-300"
+          className="w-40 h-40 rounded-full mx-auto border border-gray-300"
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = "https://via.placeholder.com/150";
@@ -86,11 +86,11 @@ export default function LeetCodeProfile({ username }) {
       )}
       <h2 className="text-xl font-bold mt-3">{username}</h2>
       <div className="mt-2">
-        <p className="text-[20px]">
+        <p className="text-[23px]">
           <span className="font-bold text-[#dd2cab]">Total Solved:</span> 
           <span className="text-[#ffb835] font-bold">{userData.totalSolved}</span>
         </p>
-        <p className="mb-6">
+        <p className="mb-6 text-[23px]">
           <span className="font-bold text-[#1da11d]">Contest Rating:</span> 
           <span className="text-[#eb822d] font-bold">{Math.round(userData.contestRating)}</span>
         </p>
