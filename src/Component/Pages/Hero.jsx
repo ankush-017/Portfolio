@@ -7,7 +7,9 @@ import { Download, CircleArrowDown, Linkedin, Github, Mail, Instagram } from 'lu
 import { Link } from 'react-scroll';
 
 function Hero() {
+    
     const darkMode = useSelector((state) => state.theme.darkMode);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     return (
         <div className={`flex flex-col pt-52 md:pt-20 gap-14 md:gap-0 md:flex-row h-screen md:h-[80vh] lg:h-[100vh] w-full items-center justify-center px-5 mx-auto z-10 text-center md:text-left ${darkMode ? "text-white" : "text-gray-800"}`}>
@@ -32,17 +34,24 @@ function Hero() {
                 </motion.div>
 
                 {/* Buttons */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 30 }} 
-                    whileInView={{ opacity: 1, y: 0 }} 
-                    transition={{ duration: 0.5, ease: "easeOut", delay: 1 }} 
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}
                     viewport={{ once: false, amount: 0.5 }}
                     className="flex space-x-4 mt-6 text-[18px]"
                 >
-                    <a href='/Resume/Resume.pdf' download="Ankush_Resume.pdf" className="px-5 py-2 flex cursor-pointer items-center gap-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition group">
+                    <a
+                        href="/Resume/Resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        {...(!isMobile && { download: "Ankush_Resume.pdf" })} // ← only on desktop
+                        className="px-5 py-2 flex cursor-pointer items-center gap-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition group"
+                    >
                         <span>Resume</span>
                         <Download className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
                     </a>
+
 
                     <Link to="about" className="px-5 cursor-pointer py-2 flex items-center gap-3 bg-yellow-600 text-white font-semibold rounded-lg hover:bg-yellow-700 transition group">
                         <span>About Me</span>
@@ -51,10 +60,10 @@ function Hero() {
                 </motion.div>
 
                 {/* Social Icons */}
-                <motion.div 
-                    initial={{ opacity: 0, y:50 }} 
-                    whileInView={{ opacity: 1, y: 0 }} 
-                    transition={{ duration: 0.5, ease: "easeOut", delay: 1.5 }} 
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut", delay: 1.5 }}
                     viewport={{ once: false, amount: 0.5 }}
                     className='mt-5 flex gap-5'
                 >
