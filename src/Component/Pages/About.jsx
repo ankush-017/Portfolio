@@ -3,59 +3,86 @@ import { User, GraduationCap } from 'lucide-react';
 import Timeline from "./Timeline";
 import { motion } from "framer-motion";
 
-
 function About() {
     const darkMode = useSelector((state) => state.theme.darkMode);
 
     return (
-        <div id="about" className={`pt-11 md:pt-0 min-h-screen ${darkMode ? "bg-black text-gray-200" : "bg-white text-gray-700"} flex flex-col w-full items-center `}>
-            <motion.div
-                className="flex flex-col mt-9 items-center"
-                initial={{ opacity: 0, x: -100 }}  // Start from the left
-                whileInView={{ opacity: 1, x: 0 }} // Animate to normal position
-                viewport={{ once: true }}  // Animate only once per visit
-                transition={{ duration: 0.8, ease: "easeOut" }}  // Smooth animation
-            >
-                <div className="flex gap-3">
-                    {/* User Icon */}
-                    <User size={40} className="mt-2" />
-                    {/* About Me Heading */}
-                    <h1 className="text-[38px] font-bold">About <span className="text-yellow-600">Me</span></h1>
-                </div>
-
-                {/* Animated Content */}
+        <div
+            id="about"
+            className={`min-h-screen w-full pt-20 px-4 md:px-0 ${darkMode ? "bg-black text-white" : "bg-white text-gray-800"
+                }`}
+        >
+            <div className="max-w-5xl mx-auto">
+                {/* Heading Section */}
                 <motion.div
-                    className="bg-yellow-600 max-w-3xl md:w-[900px] rounded-lg mt-3"
-                    initial={{ opacity: 0, x: 100 }}  // Start from the right
-                    whileInView={{ opacity: 1, x: 0 }}  // Move into place
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }} // Delay for smooth effect
+                    className="text-center mb-12"
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true }}
                 >
-                    <div className="md:px-16 px-7 py-5">
-                        <h1 className="text-center text-3xl font-bold">
-                            I'm <span className="text-[#391279]">Ankush Kumar</span>
-                        </h1>
-                        <p className="mt-2 text-[16px] font-bold text-[#6c113c]">
-                            I am a passionate and driven B.Tech student in my 2nd year, aspiring to become a Software Development Engineer (SDE).
-                            I enjoy building scalable applications and solving complex problems.
-                        </p>
-                        <p className="mt-2 text-[16px] font-bold text-[#301660]">
-                            Competitive programming excites me, and I continuously work on sharpening my problem-solving skills to tackle real-world challenges.
-                        </p>
-                        <p className="mt-2 text-[16px] font-bold text-[#601c16]">
-                            I thrive in collaborative environments and am always eager to learn new technologies, striving to create efficient, high-performing software solutions that make a meaningful impact.
-                        </p>
+                    <div className="flex justify-center items-center gap-2 mb-4">
+                        <User size={32} />
+                        <h2 className="text-4xl font-bold">
+                            About <span className="text-yellow-500">Me</span>
+                        </h2>
+                    </div>
+                    <p className="max-w-2xl mx-auto text-gray-400 text-md">
+                        I'm a Third-year B.Tech student with a deep passion for
+                        software development and competitive programming.
+                    </p>
+                </motion.div>
+
+                {/* About Card */}
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    viewport={{ once: true }}
+                    className={`relative overflow-hidden rounded-2xl p-8 md:p-10 backdrop-blur-lg shadow-2xl border ${darkMode
+                        ? "bg-white/5 border-white/10 text-white"
+                        : "bg-white border-gray-200 text-gray-900"
+                        }`}
+                >
+                    {/* Glow background circle */}
+                    <div className="absolute -top-10 -left-10 w-60 h-60 bg-gradient-to-tr from-blue-500 via-purple-600 to-yellow-500 opacity-20 rounded-full blur-3xl z-0" />
+
+                    <div className="relative z-10">
+                        {/* <h3 className="text-3xl md:text-4xl font-extrabold text-center mb-6">
+                            I'm <span className="text-blue-600"> Ankush </span><span className="text-yellow-500">Kumar</span>
+                        </h3> */}
+
+                        <ul className="space-y-4 text-lg md:text-xl font-medium flex flex-col justify-center items-center leading-relaxed">
+                            <li className="flex items-center gap-3">
+                                <span className="text-blue-400 text-xl">🚀</span>
+                                <span>Driven SDE aspirant building real-world scalable solutions.</span>
+                            </li>
+                            <li className="flex items-center gap-3">
+                                <span className="text-pink-400 text-xl">🧠</span>
+                                <span>Active in competitive programming & problem solving.</span>
+                            </li>
+                            <li className="flex items-center gap-3">
+                                <span className="text-purple-400 text-xl">👥</span>
+                                <span>Enjoy working in teams and shipping collaborative tech.</span>
+                            </li>
+                            <li className="flex items-center gap-3">
+                                <span className="text-green-400 text-xl">🔧</span>
+                                <span>Love building clean, efficient & impactful applications.</span>
+                            </li>
+                        </ul>
                     </div>
                 </motion.div>
-            </motion.div>
-            <hr className={`border-t-4 mt-7 ${darkMode ? "border-white" : "border-black"} my-4 w-[900px] mx-auto`} />
-            <div className="flex flex-col mt-3 items-center justify-center">
-                <div className="flex gap-3">
-                    {/* User Icon */}
-                    <GraduationCap size={40} className="mt-2" />
-                    {/* About Me Heading */}
-                    <h1 className="text-[38px] font-bold mb-3">Educ<span className="text-yellow-600">ation</span></h1>
+
+                {/* Education Timeline */}
+                <div className="mt-16">
+                    <div className="flex items-center justify-center gap-2 mb-6">
+                        <GraduationCap size={32} />
+                        <h2 className="text-3xl font-bold">
+                            Educ<span className="text-yellow-500">ation</span>
+                        </h2>
+                    </div>
+                    <Timeline />
                 </div>
-                <Timeline />
             </div>
         </div>
     );
