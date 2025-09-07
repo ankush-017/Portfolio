@@ -1,8 +1,17 @@
-import { taskmanager,pg,tm,port,cc,tic,BMI, Pokemon, Teefusion } from "../../../../public/image/projectImg.js";
+import { taskmanager,pg,tm,port,cc,tic,BMI, Pokemon, Teefusion, Uplify} from "../../../../public/image/projectImg.js";
 
 export const projectFile = [
     {
     id: 1,
+    name: "Uplify",
+    img: Uplify,
+    techstack: "React.js, Redux Toolkit, Node.js, Express.js, MongoDB, Tailwind CSS, Firebase, Supabase, Google GenAI",
+    link: "https://github.com/ankush-017/UPLIFY",
+    desc: "Uplify is a platform designed to help students and learners discover opportunities, boost their skills, and grow together through a supportive digital space",
+    demo:"https://uplify-alpha.vercel.app"
+  },
+    {
+    id: 2,
     name: "Tee Fusion",
     img: Teefusion,
     techstack: "React.js, Redux Toolkit, Node.js, Express.js, MongoDB, Tailwind CSS, Razorpay, JWT, Cloudinary, Vite, Node mailer ",
@@ -11,7 +20,7 @@ export const projectFile = [
     demo:"https://tee-fusion.netlify.app/"
   },
   {
-    id: 2,
+    id: 3,
     name: "Pokemon",
     img: Pokemon,
     techstack: "HTML, Tailwind CSS, Javascript, Axios, React js",
@@ -20,7 +29,7 @@ export const projectFile = [
     demo:"https://pokemon-017.netlify.app/"
   },
   {
-    id: 3,
+    id: 4,
     name: "Task Manager",
     img: taskmanager,
     techstack: "React js, ReduxToolkit, Tailwind CSS,JavaScript, LocalStorage",
@@ -29,7 +38,7 @@ export const projectFile = [
     desc: "Task Manager is a simple and intuitive to-do app built with React and styled using Tailwind CSS. It allows users to easily add, edit, and mark tasks as completed. The app also features persistent task storage, ensuring your to-do list remains intact even after you refresh or revisit the page."
   },
   {
-    id: 4,
+    id: 5,
     name: "Password Generator",
     img: pg,
     techstack: "React js, Tailwind CSS, JavaScript",
@@ -38,7 +47,7 @@ export const projectFile = [
     demo:"https://password-generator017.netlify.app/"
   },
   {
-    id: 5,
+    id: 6,
     name: "Currency Convertor",
     img: cc,
     techstack: "React js, Javascript, API, Tailwind CSS",
@@ -47,7 +56,7 @@ export const projectFile = [
     demo:"https://currency-convertor017.netlify.app/"
   },
   {
-    id: 6,
+    id: 7,
     name: "Portfolio",
     img: port,
     techstack: "React js, Javascript, Tailwind CSS, ReduxToolkit, Nodejs, Axios, Expressjs",
@@ -56,7 +65,7 @@ export const projectFile = [
     demo:"https://portfolioankushkumar.netlify.app/"
   },
   {
-    id: 7,
+    id: 8,
     name: "The Malaviyan",
     img: tm,
     techstack: "React js, ReduxToolkit, Tailwind CSS, JavaScript",
@@ -65,7 +74,7 @@ export const projectFile = [
     demo:"https://themalaviyan.netlify.app/"
   },
   {
-    id: 8,
+    id: 9,
     name: "Tic-Tac-Toe",
     img: tic,
     techstack: "HTML, Tailwind CSS, Javascript",
@@ -74,7 +83,7 @@ export const projectFile = [
     demo:"https://ankush-017.github.io/Tic-Tac-Game/"
   },
   {
-    id: 9,
+    id: 10,
     name: "BMI Calculator",
     img: BMI,
     techstack: "HTML, Tailwind CSS, Javascript",

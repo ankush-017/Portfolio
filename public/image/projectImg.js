@@ -7,5 +7,6 @@ import tic from './TicToc.png'
 import BMI from './BMI.png'
 import Pokemon from './Pokemon.png'
 import Teefusion from './Teefusion.png'
+import Uplify from './Uplify.png'
 
-export {taskmanager,pg,tm,port,cc,tic,BMI,Pokemon,Teefusion};
+export {taskmanager,pg,tm,port,cc,tic,BMI,Pokemon,Teefusion,Uplify};
