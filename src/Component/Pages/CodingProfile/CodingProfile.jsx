@@ -110,7 +110,7 @@ function CodingProfile() {
                         <Code2 size={20} className="text-emerald-500" />
                         <span className="text-xs font-mono uppercase tracking-widest opacity-50 font-bold">Total Algorithmic Units Solved:</span>
                     </div>
-                    <span className="text-xl font-black text-emerald-500 tracking-tighter">1,500+ PROBLEMS</span>
+                    <span className="text-xl font-black text-emerald-500 tracking-tighter">2,000+ PROBLEMS</span>
                 </motion.div>
             </div>
         </section>
