@@ -22,7 +22,7 @@ function Project() {
           &lt; Featured_Work /&gt;
         </h2>
         <h1 className="text-4xl md:text-5xl text-emerald-500 font-black mb-6 tracking-tight">
-          Highlighted <span className="text-transparent bg-clip-text text-rose-500">Projects</span>
+          Highlighted <span className="bg-clip-text text-rose-500">Projects</span>
         </h1>
         <p className={`max-w-2xl mx-auto mb-16 text-base md:text-lg ${darkMode ? "text-zinc-400" : "text-zinc-600"}`}>
           A collection of systems and applications focused on performance, scalability, and user experience.
