@@ -1,63 +1,98 @@
+import React from 'react';
 import { motion } from "framer-motion";
+import { useSelector } from 'react-redux';
 import timeline from "../timeline";
-import { School } from "lucide-react";
+import { School, GraduationCap, Calendar } from "lucide-react";
 
 export default function Timeline({ defaultColor }) {
-  return (
-    <div className="flex flex-col pr-5 items-center justify-center w-full overflow-hidden">
-      {timeline.map((element, index) => {
-        const colors = ["bg-red-500", "bg-blue-500", "bg-yellow-500"];
-        const color = defaultColor || `bg-${element.color}-500`;
+    const darkMode = useSelector((state) => state.theme.darkMode);
 
-        // Animation variants for the timeline item
-        const itemVariants = {
-          hidden: { opacity: 0, y: 50 }, // Start position (hidden)
-          visible: { opacity: 1, y: 0 }, // End position (visible)
-        };
-
-        return (
-          <motion.div
-            key={element.id}
-            className="flex items-center my-6 w-full max-w-2xl relative gap-x-2"
-            initial="hidden" // Initial animation state
-            whileInView="visible" // Animate when in view
-            // viewport={{ once: true }} // Animate only once
-            variants={itemVariants} // Animation variants
-            transition={{ duration: 0.5, delay: index * 0.2 }} // Animation delay and duration
-          >
-            {/* Vertical Line for Small Screens */}
-            <div className={`${color} w-0.5 h-12 opacity-100 sm:hidden`} />
-
-            {/* Timeline Item */}
-            <div className="hidden sm:flex items-center w-44 relative">
-              <div className="w-4/5 text-gray-500 font-bold">{element.date}</div>
-              <div className={`${color} w-0.5 h-full opacity-70`} />
-              <div className={`${color} h-0.5 w-8 opacity-70`} />
+    return (
+        <div className="relative flex flex-col items-center justify-center w-full max-w-6xl mx-auto px-4 py-20">
+            
+            {/* --- Central Vertical Line --- */}
+            <div className={`absolute left-8 sm:left-1/2 transform sm:-translate-x-1/2 h-[90%] w-0.5 top-10 ${darkMode ? "bg-zinc-800" : "bg-zinc-200"}`}>
+                <motion.div 
+                    initial={{ height: 0 }}
+                    whileInView={{ height: "100%" }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    className="w-full bg-gradient-to-b from-emerald-500 via-rose-500 to-emerald-500 opacity-50"
+                />
             </div>
 
-            {/* Icon (School) */}
-            <motion.div
-              className={`${color} p-2 rounded-full text-white flex justify-center items-center`}
-              whileHover={{ scale: 1.1 }} // Scale up on hover
-              whileTap={{ scale: 0.9 }} // Scale down on tap
-            >
-              <School />
-            </motion.div>
+            {timeline.map((element, index) => {
+                const isEven = index % 2 === 0;
+                // Safely handle dynamic color classes
+                const accentColor = element.color || "emerald"; 
+                const colorClass = defaultColor || `bg-${accentColor}-500`;
 
-            {/* Content Card with margin for spacing */}
-            <motion.div
-              className="border flex flex-col justify-center items-center border-gray-600 rounded-lg px-6 py-4 bg-gray-800 w-full text-center sm:w-96 ml-4"
-              whileHover={{ scale: 1.02 }} // Slightly scale up on hover
-              transition={{ type: "spring", stiffness: 300 }} // Spring animation
-            >
-              <h3 className={`text-xl text-center text-white font-semibold`}>{element.title}</h3>
-              <p className="text-left text-gray-300">{element.description}</p>
-              <p className="text-left font-bold text-gray-300" style={{color: element.color}}>{element.location}</p>
-              <p className="text-gray-400 text-sm block sm:hidden">{element.date}</p>
-            </motion.div>
-          </motion.div>
-        );
-      })}
-    </div>
-  );
+                return (
+                    <div key={element.id} className={`flex items-center justify-between w-full mb-16 sm:mb-24 relative`}>
+                        
+                        {/* 1. Date (Desktop - Alternating) */}
+                        <div className={`hidden sm:flex w-[45%] ${isEven ? "justify-end pr-12" : "order-last justify-start pl-12"}`}>
+                            <motion.div 
+                                initial={{ opacity: 0, x: isEven ? 20 : -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                className="flex items-center gap-2 text-zinc-500 font-mono font-bold text-lg"
+                            >
+                                <Calendar size={18} className="text-emerald-500" />
+                                {element.date}
+                            </motion.div>
+                        </div>
+
+                        {/* 2. Central Icon Node */}
+                        <motion.div
+                            initial={{ scale: 0, rotate: -45 }}
+                            whileInView={{ scale: 1, rotate: 0 }}
+                            viewport={{ once: true }}
+                            className={`absolute left-8 sm:left-1/2 transform -translate-x-1/2 z-10 w-12 h-12 rounded-full flex items-center justify-center border-4 shadow-xl 
+                                ${darkMode ? "bg-zinc-900 border-zinc-950 text-white" : "bg-white border-slate-50 text-zinc-900"}`}
+                        >
+                            <div className={`${colorClass} p-2 rounded-full text-white shadow-lg shadow-emerald-500/20`}>
+                                <School size={20} />
+                            </div>
+                        </motion.div>
+
+                        {/* 3. Content Card */}
+                        <motion.div
+                            initial={{ opacity: 0, x: isEven ? -50 : 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ margin: "-100px" }}
+                            transition={{ duration: 0.6, type: "spring" }}
+                            className={`w-[85%] sm:w-[45%] ml-16 sm:ml-0 group`}
+                        >
+                            <div className={`relative p-6 rounded-2xl border transition-all duration-300 hover:shadow-2xl 
+                                ${darkMode 
+                                    ? "bg-zinc-900/50 border-zinc-800 hover:border-emerald-500/50" 
+                                    : "bg-white border-zinc-200 hover:border-emerald-500/50"}`}>
+                                
+                                {/* Accent Corner Decor */}
+                                <div className={`absolute top-0 right-0 w-20 h-20 opacity-10 pointer-events-none overflow-hidden rounded-tr-2xl`}>
+                                    <div className={`absolute top-[-20%] right-[-20%] w-full h-full rotate-45 ${colorClass}`} />
+                                </div>
+
+                                <span className={`text-xs font-bold uppercase tracking-widest sm:hidden mb-2 block ${darkMode ? "text-emerald-400" : "text-emerald-600"}`}>
+                                    {element.date}
+                                </span>
+
+                                <h3 className="text-xl font-black mb-2 tracking-tight">{element.title}</h3>
+                                
+                                <p className={`text-sm leading-relaxed mb-4 ${darkMode ? "text-zinc-400" : "text-zinc-600"}`}>
+                                    {element.description}
+                                </p>
+
+                                <div className="flex items-center gap-2">
+                                    <div className={`h-1.5 w-1.5 rounded-full ${colorClass}`} />
+                                    <span className="text-xs font-bold opacity-70 tracking-wide uppercase italic">
+                                        {element.location}
+                                    </span>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                );
+            })}
+        </div>
+    );
 }

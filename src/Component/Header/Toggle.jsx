@@ -1,5 +1,7 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../Store/Slice/themeSlice";
+import { HiSun, HiMoon } from "react-icons/hi";
 
 const Toggle = () => {
   const dispatch = useDispatch();
@@ -8,12 +10,40 @@ const Toggle = () => {
   return (
     <button
       onClick={() => dispatch(toggleTheme())}
-      className={`flex items-center gap-2 p-2 rounded-lg transition border-green-900 dark:border-white border-[3px] bg-gray-300 dark:bg-gray-800 text-gray-800 dark:text-gray-200`}
+      className={`relative flex items-center justify-center p-2 rounded-xl transition-all duration-500 group border
+        ${
+          darkMode
+            ? "bg-zinc-900 border-emerald-500/30 text-emerald-400 hover:border-emerald-500 hover:shadow-[0_0_15px_rgba(16,185,129,0.2)]"
+            : "bg-white border-zinc-200 text-rose-500 hover:border-rose-300 hover:shadow-[0_0_15px_rgba(244,63,94,0.1)]"
+        }`}
+      aria-label="Toggle Theme"
     >
-      <span className="material-symbols-outlined text-[20px] md:text-2xl text-white">
-        {darkMode ? "light_mode" : "dark_mode"}
-      </span>
+      <div className="relative w-6 h-6 flex items-center justify-center overflow-hidden">
+        {/* Sun Icon */}
+        <div
+          className={`absolute transition-all duration-500 transform ${
+            darkMode ? "translate-y-0 rotate-0 opacity-100" : "translate-y-8 rotate-45 opacity-0"
+          }`}
+        >
+          <HiSun size={22} />
+        </div>
+
+        {/* Moon Icon */}
+        <div
+          className={`absolute transition-all duration-500 transform ${
+            darkMode ? "-translate-y-8 -rotate-45 opacity-0" : "translate-y-0 rotate-0 opacity-100"
+          }`}
+        >
+          <HiMoon size={20} />
+        </div>
+      </div>
+      
+      {/* Subtle hover background for premium feel */}
+      <span className={`absolute inset-0 rounded-xl transition-opacity duration-300 opacity-0 group-hover:opacity-100 
+        ${darkMode ? "bg-emerald-500/5" : "bg-rose-500/5"}`} 
+      />
     </button>
   );
 };
+
 export default Toggle;

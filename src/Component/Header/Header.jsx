@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Toggle from "./Toggle";
 import { useSelector } from "react-redux";
@@ -7,6 +7,13 @@ import { FaBars, FaTimes } from "react-icons/fa";
 function Header() {
   const darkMode = useSelector((state) => state.theme.darkMode);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -15,30 +22,42 @@ function Header() {
     { name: "Contact", path: "/contact" },
   ];
 
+  const activeGreen = darkMode ? "text-emerald-400" : "text-emerald-600";
+  const hoverStyles = darkMode
+    ? "hover:text-rose-400 hover:bg-rose-500/10"
+    : "hover:text-rose-600 hover:bg-rose-100/80";
+
   return (
     <>
-      {/* Header Bar */}
-      <header className={`shadow fixed w-full top-0 z-50 backdrop-blur-md bg-opacity-10 ${darkMode ? "bg-black text-gray-200" : "bg-white text-gray-700"}`}>
-        <nav className={`px-4 flex flex-wrap ${darkMode ? "bg-black shadow-lg shadow-white" : "bg-white shadow-lg shadow-black"} justify-between items-center py-3`}>
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl md:text-3xl font-bold">{`<`}Ankush</span>
-            <span className="text-2xl md:text-3xl font-bold">Kumar {`/>`}</span>
+      <header
+        className={`fixed top-0 w-full z-[60] transition-all duration-500 ${scrolled
+          ? `${darkMode ? "bg-zinc-950/90" : "bg-white/95"} backdrop-blur-md border-b ${darkMode ? "border-emerald-500/20" : "border-emerald-600/10"}`
+          : "bg-transparent"
+          }`}
+      >
+        <nav className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          {/* logo area */}
+          <Link to="/" className="group flex items-center font-mono text-2xl md:text-3xl tracking-tighter">
+            <span className="text-emerald-500 group-hover:text-rose-500 transition-colors duration-300">&lt;</span>
+            <span className={`px-1 font-bold ${darkMode ? "text-zinc-100" : "text-zinc-800"}`}>
+              Ankush
+              <span className="text-rose-500 group-hover:text-emerald-500 transition-colors duration-300">Kumar</span>
+            </span>
+            <span className="text-emerald-500 group-hover:text-rose-500 transition-colors duration-300">/&gt;</span>
           </Link>
 
           {/* Desktop Nav */}
-          <div className="items-center gap-6 hidden md:flex">
-            <ul className="flex gap-5">
+          <div className="hidden md:flex items-center gap-6">
+            <ul className="flex items-center gap-2">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
-                      `block py-2 px-4 rounded-md duration-200 ${
-                        isActive
-                          ? `${darkMode ? "text-green-300" : "text-green-700"} font-semibold`
-                          : `${darkMode ? "text-white" : "text-black"}`
-                      } hover:text-orange-700`
+                      `px-4 py-2 text-sm font-bold transition-all duration-300 rounded-lg ${isActive
+                        ? `${activeGreen} ${darkMode ? "bg-emerald-500/20" : "bg-emerald-100"}`
+                        : `${darkMode ? "text-zinc-200" : "text-zinc-700"} ${hoverStyles}`
+                      }`
                     }
                   >
                     {link.name}
@@ -46,38 +65,62 @@ function Header() {
                 </li>
               ))}
             </ul>
-            <Toggle />
+            <div className={`h-5 w-[1px] ${darkMode ? "bg-zinc-200" : "bg-zinc-700"}`} />
+            <div className="pl-2"><Toggle /></div>
           </div>
 
-          {/* Mobile Nav Icon */}
-          <div className="md:hidden flex gap-4 items-center">
+          {/* Mobile UI Toggle */}
+          <div className="md:hidden flex items-center gap-4">
             <Toggle />
-            <button onClick={() => setMobileMenuOpen(true)} className="text-[26px]">
-              <FaBars />
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className={`p-2 rounded-xl transition-all active:scale-90 ${darkMode ? "text-emerald-400" : "text-emerald-600"}`}
+            >
+              <FaBars size={30} />
             </button>
           </div>
         </nav>
       </header>
 
-      {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
-        <div className={`fixed top-0 left-0 w-full h-full z-[100] backdrop-blur-md ${darkMode ? "bg-black/80 text-white" : "bg-white/90 text-black"} transition duration-300`}>
-          <div className="flex justify-end p-5">
-            <button onClick={() => setMobileMenuOpen(false)} className="text-3xl hover:text-red-400">
-              <FaTimes />
+      {/* Dark Backdrop Overlay */}
+      <div
+        className={`fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+        onClick={() => setMobileMenuOpen(false)}
+      />
+
+      {/* Side Menu Panel */}
+      <div
+        className={`fixed top-0 right-0 h-full w-[280px] z-[110] transition-transform duration-300 ease-in-out transform ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          } ${darkMode ? "bg-zinc-950 border-l border-zinc-800" : "bg-white border-l border-zinc-100"}`}
+      >
+        <div className="flex flex-col h-full">
+          {/* Menu Header */}
+          <div className="p-6 flex justify-between items-center border-b border-zinc-500/10">
+            <Link to="/" className="group flex items-center font-mono text-xl md:text-3xl tracking-tighter">
+              <span className="text-emerald-500 group-hover:text-rose-500 transition-colors duration-300">&lt;</span>
+              <span className={`px-1 font-bold ${darkMode ? "text-zinc-100" : "text-zinc-800"}`}>
+                Ankush
+                <span className="text-rose-500 group-hover:text-emerald-500 transition-colors duration-300">Kumar</span>
+              </span>
+              <span className="text-emerald-500 group-hover:text-rose-500 transition-colors duration-300">/&gt;</span>
+            </Link>
+            <button onClick={() => setMobileMenuOpen(false)} className="text-rose-500 p-2">
+              <FaTimes size={24} />
             </button>
           </div>
-          <ul className="flex flex-col items-center justify-center h-[80%] gap-10 text-2xl font-semibold">
+
+          {/* Menu Links */}
+          <ul className="flex flex-col p-4 gap-2">
             {navLinks.map((link) => (
               <li key={link.name}>
                 <NavLink
                   to={link.path}
                   onClick={() => setMobileMenuOpen(false)}
                   className={({ isActive }) =>
-                    `block px-4 py-2 rounded transition-all duration-200 ${
-                      isActive
-                        ? "text-orange-500 underline underline-offset-4"
-                        : "hover:text-pink-500"
+                    `flex items-center px-4 py-4 text-base font-bold rounded-xl transition-all ${isActive
+                      ? `${activeGreen} ${darkMode ? "bg-emerald-500/10" : "bg-emerald-50"}`
+                      : `${darkMode ? "text-zinc-300" : "text-zinc-600"} active:bg-zinc-100 dark:active:bg-zinc-900`
                     }`
                   }
                 >
@@ -86,8 +129,19 @@ function Header() {
               </li>
             ))}
           </ul>
+
+          {/* Menu Footer */}
+          <div className="mt-auto p-8 text-center">
+            <div className="flex justify-center gap-4 mb-4">
+              <div className="w-2 h-2 rounded-full bg-emerald-500" />
+              <div className="w-2 h-2 rounded-full bg-rose-500" />
+            </div>
+            <p className={`text-[10px] font-mono tracking-widest uppercase opacity-40 ${darkMode ? "text-white" : "text-black"}`}>
+              Portfolio © 2026
+            </p>
+          </div>
         </div>
-      )}
+      </div>
     </>
   );
 }
